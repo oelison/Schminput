@@ -81,14 +81,14 @@ impl<
         binding_id: impl Fn(&BindingData) -> u64,
         path_matches: impl Fn(
             &BindingData,
-            &<<PathData as QueryData>::ReadOnly as QueryData>::Item<'_>,
+            &<<PathData as QueryData>::ReadOnly as QueryData>::Item<'_, '_>,
         ) -> bool,
-        bindings: impl Fn(&<ActionData as QueryData>::Item<'_>) -> Vec<BindingData>,
+        bindings: impl Fn(&<ActionData as QueryData>::Item<'_, '_>) -> Vec<BindingData>,
         mut update_for_binding: impl FnMut(
             &BindingData,
-            &mut <ActionData as QueryData>::Item<'_>,
+            &mut <ActionData as QueryData>::Item<'_, '_>,
 
-            Option<&<<PathData as QueryData>::ReadOnly as QueryData>::Item<'_>>,
+            Option<&<<PathData as QueryData>::ReadOnly as QueryData>::Item<'_, '_>>,
             &GenericBindingData,
         ) -> Vec<BindingValue>,
     ) {
@@ -126,7 +126,7 @@ impl<
                         {
                             return Vec::new();
                         }
-                    }
+                        }
                     let mut binding_modifications = Modifications {
                         inner: modifications,
                         premul_delta_time: pre_mul_delta_time_all,
@@ -184,7 +184,7 @@ impl<
                         {
                             continue;
                         }
-                    }
+                        }
                     if !path_matches(binding, &path_data) {
                         continue;
                     }
